@@ -16,11 +16,18 @@ class _RegisterPageState extends State<RegisterPage> {
   //text editing controllers
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+  final confirmPasswordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    // ↓ Add this.
+    final style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.onPrimary,
+    );
+
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: theme.colorScheme.background,
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -29,14 +36,22 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //logo - icon
-                const Icon(Icons.lock_open_outlined, size: 100),
+                Icon(
+                  Icons.lock_open_outlined,
+                  size: 100,
+                  color: theme.colorScheme.onBackground,
+                ),
                 const SizedBox(
                   height: 15,
                 ),
 
                 //welcome - text
-                const Text(
+                Text(
                   "Let's create an account for you.",
+                  style: TextStyle(
+                    color: theme.colorScheme.onBackground,
+                    fontSize: 18,
+                  ),
                 ),
                 const SizedBox(
                   height: 25,
@@ -45,7 +60,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 //email - text-field
                 MyTextField(
                     controller: emailTextController,
-                    hintText: 'Email',
+                    labelText: 'Email Address',
+                    hintText: 'samone@thewall.com',
                     obscureText: false),
                 const SizedBox(
                   height: 10,
@@ -54,7 +70,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 //password - text-field
                 MyTextField(
                     controller: passwordTextController,
-                    hintText: 'Password',
+                    labelText: 'Password',
+                    hintText: 'Must be more than 8 characters!',
                     obscureText: true),
                 const SizedBox(
                   height: 10,
@@ -62,8 +79,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 //password - text-field
                 MyTextField(
-                    controller: passwordTextController,
-                    hintText: 'Confirm Password',
+                    controller: confirmPasswordTextController,
+                    labelText: 'Confirm Password',
+                    hintText: 'Does it match with the above password?',
                     obscureText: true),
                 const SizedBox(
                   height: 10,
@@ -93,7 +111,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: const Text(
                         'Sign In Now!',
                         style: TextStyle(
-                          color: Colors.redAccent,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

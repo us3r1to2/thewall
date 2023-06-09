@@ -18,8 +18,14 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    // ↓ Add this.
+    final style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.onPrimary,
+    );
+
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: theme.colorScheme.background,
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -28,14 +34,22 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //logo - icon
-                const Icon(Icons.lock_outline, size: 100),
+                Icon(
+                  Icons.lock_outline,
+                  size: 100,
+                  color: theme.colorScheme.onBackground,
+                ),
                 const SizedBox(
                   height: 15,
                 ),
 
                 //welcome - text
-                const Text(
-                  "Welcome Back, You've Been Missed!",
+                Text(
+                  "Welcome back, you've been missed!",
+                  style: TextStyle(
+                    color: theme.colorScheme.onBackground,
+                    fontSize: 18,
+                  ),
                 ),
                 const SizedBox(
                   height: 25,
@@ -44,7 +58,8 @@ class _LoginPageState extends State<LoginPage> {
                 //email - text-field
                 MyTextField(
                     controller: emailTextController,
-                    hintText: 'Email',
+                    labelText: 'Email Address',
+                    hintText: 'samone@thewall.com',
                     obscureText: false),
                 const SizedBox(
                   height: 10,
@@ -52,9 +67,11 @@ class _LoginPageState extends State<LoginPage> {
 
                 //password - text-field
                 MyTextField(
-                    controller: passwordTextController,
-                    hintText: 'Password',
-                    obscureText: true),
+                  controller: passwordTextController,
+                  labelText: 'Password',
+                  hintText: 'Make sure its the correct password.',
+                  obscureText: true,
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -83,7 +100,6 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text(
                         'Sign Up Now!',
                         style: TextStyle(
-                          color: Colors.lightBlueAccent,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
